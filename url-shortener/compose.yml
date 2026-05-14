@@ -1,0 +1,38 @@
+services:
+  read-api:
+    build:
+      context: ./read-api
+      dockerfile: Dockerfile
+
+    env_file:
+      - ./read-api/.env
+
+    environment:
+      NODE_ENV: production
+
+    restart: unless-stopped
+
+    expose:
+      - "${PORT:-3000}"
+
+    networks:
+      - shared-network
+
+    labels:
+      - "traefik.enable=true"
+
+      # Router
+      - "traefik.http.routers.api.rule=Host(`read-api.localhost`)"
+      - "traefik.http.routers.api.entrypoints=web"
+      # - "traefik.http.routers.api.entrypoints=websecure"
+      # - "traefik.http.routers.api.tls=true"
+
+      # Service
+      - "traefik.http.services.api.loadbalancer.server.port=${PORT:-3000}"
+
+      # Optional letsencrypt resolver
+      # - "traefik.http.routers.api.tls.certresolver=letsencrypt"
+
+networks:
+  shared-network:
+    external: true
