@@ -4,6 +4,8 @@ import fastifyCors from "@fastify/cors";
 import fastifyRateLimit from "@fastify/rate-limit";
 import fastifySensible from "@fastify/sensible";
 
+import healthPlugin from "./plugins/health.plugin";
+
 const app = Fastify({
   logger: true,
 });
@@ -18,6 +20,8 @@ app.register(fastifyRateLimit, {
   max: 100,
   timeWindow: "1 minute",
 });
+
+app.register(healthPlugin);
 
 app.route({
   url: "/:id",
@@ -67,6 +71,7 @@ const start = async () => {
 
   try {
     await app.listen({ port, host });
+    app.log.info(`Server is running at http://${host}:${port}`);
   } catch (err) {
     app.log.error(err);
     process.exit(1);
