@@ -8,11 +8,11 @@
   "scripts": {
     "start": "node --env-file=.env dist/server.js",
     "dev": "tsx watch --env-file=.env src/server.ts",
-    "build": "tsc",
+    "build": "tsc -p .",
     "db:dev": "pnpm dlx prisma studio",
     "db:migrate:init": "pnpm dlx prisma migrate dev --name init",
-    "db:migrate:dev": "pnpm dlx  prisma migrate dev",
-    "db:migrate:prod": "pnpm dlx  prisma migrate deploy",
+    "db:migrate:dev": "pnpm dlx prisma migrate dev",
+    "db:migrate:prod": "pnpm dlx prisma migrate deploy",
     "db:generate": "pnpm dlx prisma generate"
   },
   "keywords": [],
