@@ -1,0 +1,80 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/lib/prisma/generated"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model User {
+  id String @id @default(cuid())
+
+  email String  @unique
+  name  String?
+
+  password String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  shortUrls ShortUrl[]
+
+  @@index([email])
+}
+
+model ShortUrl {
+  id String @id @default(cuid())
+
+  shortCode   String @unique
+  originalUrl String @db.Text
+
+  title String?
+
+  clicks Int @default(0)
+
+  isActive Boolean @default(true)
+
+  expiresAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  clickMetrics ClickMetric[]
+
+  @@index([shortCode])
+  @@index([userId])
+  @@index([createdAt])
+}
+
+model ClickMetric {
+  id String @id @default(cuid())
+
+  shortUrlId String
+  shortUrl   ShortUrl @relation(fields: [shortUrlId], references: [id], onDelete: Cascade)
+
+  ipAddress String?
+
+  country String?
+  city    String?
+
+  userAgent String? @db.Text
+  referer   String? @db.Text
+
+  device  String?
+  browser String?
+  os      String?
+
+  clickedAt DateTime @default(now())
+
+  @@index([shortUrlId])
+  @@index([clickedAt])
+}
