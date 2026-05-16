@@ -8,7 +8,7 @@ importers:
 
   .: {}
 
-  apps/service-url:
+  apps/svc-url:
     dependencies:
       '@fastify/cors':
         specifier: ^11.2.0
