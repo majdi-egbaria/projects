@@ -4,7 +4,7 @@ import fastifyCors from "@fastify/cors";
 import fastifyRateLimit from "@fastify/rate-limit";
 import fastifySensible from "@fastify/sensible";
 
-import healthPlugin from "./plugins/health.plugin";
+import { plugins } from "@repo/backend";
 
 const app = Fastify({
   logger: true,
@@ -21,7 +21,7 @@ app.register(fastifyRateLimit, {
   timeWindow: "1 minute",
 });
 
-app.register(healthPlugin);
+app.register(plugins.health);
 
 app.route({
   url: "/:id",
