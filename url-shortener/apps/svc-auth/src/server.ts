@@ -51,12 +51,8 @@ app.route({
         headers,
         ...(request.body ? { body: JSON.stringify(request.body) } : {}),
       });
-      // TODO: REMOVE AFTER DEBUG!
-      console.log("Request", req);
       // Process authentication request
       const response = await auth.handler(req);
-      // TODO: REMOVE AFTER DEBUG!
-      console.log("Response", response);
       // Forward response to client
       reply.status(response.status);
       response.headers.forEach((value, key) => reply.header(key, value));
