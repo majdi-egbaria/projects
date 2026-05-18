@@ -21,7 +21,7 @@ app.register(fastifySensible);
 app.register(fastifyHelmet);
 
 app.register(fastifyCors, {
-  origin: process.env.CLIENT_ORIGIN || `http://${host}:${port}`,
+  origin: process.env.CLIENT_ORIGIN || `http://${host}:4000`,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
   credentials: true,

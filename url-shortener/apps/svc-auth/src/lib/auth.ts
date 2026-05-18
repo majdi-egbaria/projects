@@ -13,5 +13,5 @@ export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: "mysql",
   }),
-  trustedOrigins: [`http://${host}:${port}`],
+  trustedOrigins: [`http://${host}:4000`],
 });
