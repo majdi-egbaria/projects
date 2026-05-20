@@ -2,10 +2,12 @@ import Link from "next/link";
 
 import { Button, Card, CardContent } from "@heroui/react";
 
+import Page from "@/components/layout/Page";
+
 export default function NotFoundPage() {
   return (
-    <div className="flex items-center justify-center h-full">
-      <Card className="w-full max-w-lg">
+    <Page centered>
+      <Card>
         <CardContent className="flex flex-col items-center gap-6 px-8 py-12 text-center">
           <div className="space-y-2">
             <h1 className="text-7xl font-bold tracking-tight text-primary">
@@ -27,6 +29,6 @@ export default function NotFoundPage() {
           </Link>
         </CardContent>
       </Card>
-    </div>
+    </Page>
   );
 }
